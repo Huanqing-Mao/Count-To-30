@@ -1,5 +1,5 @@
 # Count-To-30
-A toy programme I created for myself.  
+A toy programme I created by myself.  
 
 ## Game Rules
 - There are two players in the game: User and Computer.
