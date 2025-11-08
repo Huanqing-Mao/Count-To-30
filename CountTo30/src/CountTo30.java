@@ -13,7 +13,7 @@ public class CountTo30 extends JFrame {
     private JTextArea logArea;
     private JButton oneButton;
     private JButton twoButton;
-    private JButton threeButton;
+    private JButton restartButton;
 
     public CountTo30() {
         setTitle("Count to 30 Game");
@@ -40,6 +40,11 @@ public class CountTo30 extends JFrame {
         twoButton.setBounds(200, 220, 100, 30);
         twoButton.addActionListener(new ButtonListener(2));
         add(twoButton);
+
+        restartButton = new JButton("Restart");
+        restartButton.setBounds(310, 20, 80, 30);
+        restartButton.addActionListener(e -> resetGame());
+        add(restartButton);
 
         logArea.append("Game started at: " + getCurrentTimestamp() + "\n");
 
@@ -86,18 +91,21 @@ public class CountTo30 extends JFrame {
 
         if (currentCount >= 30) {
             if (humanCount >= 30) {
-                JOptionPane.showMessageDialog(this, "You lost! You had to say 30!", "Game Over", JOptionPane.INFORMATION_MESSAGE);
+                handleGameOver("You lost! You had to say 30!");
             } else if (computerCount >= 30) {
-                JOptionPane.showMessageDialog(this, "Computer lost! It is forced to say 30!", "Game Over", JOptionPane.INFORMATION_MESSAGE);
+                handleGameOver("Computer lost! It is forced to say 30!");
             }
-            disableButtons();
         }
     }
 
     private void disableButtons() {
         oneButton.setEnabled(false);
         twoButton.setEnabled(false);
-        threeButton.setEnabled(false);
+    }
+
+    private void enableButtons() {
+        oneButton.setEnabled(true);
+        twoButton.setEnabled(true);
     }
 
     private int makeComputerMove() {
@@ -108,6 +116,34 @@ public class CountTo30 extends JFrame {
         } else {
             return (int) (Math.random() * 2) + 1; // Random choice of 1, or 2
         }
+    }
+
+    private void handleGameOver(String message) {
+        disableButtons();
+        int choice = JOptionPane.showOptionDialog(
+                this,
+                message + "\nPlay again?",
+                "Game Over",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.INFORMATION_MESSAGE,
+                null,
+                null,
+                null
+        );
+
+        if (choice == JOptionPane.YES_OPTION) {
+            resetGame();
+        }
+    }
+
+    private void resetGame() {
+        currentCount = 0;
+        humanCount = 0;
+        computerCount = 0;
+        countLabel.setText("Current Count: " + currentCount);
+        logArea.setText("");
+        logArea.append("Game restarted at: " + getCurrentTimestamp() + "\n");
+        enableButtons();
     }
 
     public static void main(String[] args) {
