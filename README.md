@@ -12,7 +12,7 @@ Count-To-30 is a lightweight Java desktop game that reenacts the classic countin
 1. Install a Java Runtime Environment (JRE) 8 or newer.
 2. Open a terminal and run:
    ```
-   java -jar /Users/Olivia/Desktop/NUS/SoC/Count-To-30/CountTo30/out/artifacts/CountTo30_jar/CountTo30.jar
+   java -jar /CountTo30/out/artifacts/CountTo30_jar/CountTo30.jar
    ```
 3. Interact with the GUI to advance through the steps.
 
